@@ -4,6 +4,7 @@ pygame.init()
 screen_width = 500
 screen_height = 500
 display = pygame.display.set_mode((screen_width,screen_height))
+pygame.display.set_caption("Bloxorz")
 clock = pygame.time.Clock()
 
 class Block:
@@ -11,10 +12,31 @@ class Block:
         self.x = 250
         self.y = 250
         self.width = 50
-        self.height = 100
+        self.height = 50
         
     def draw(self):
-        pygame.draw.line(display,(0,0,0),(self.x,self.y),(self.x,self.y+self.height))
+	angle_length = 21.65
+	print(0.433*self.width)
+        '''pygame.draw.line(display,(0,0,0),(self.x,self.y),(self.x,self.y+self.height)) #left edge
+        pygame.draw.line(display,(0,0,0),(self.x+self.width,self.y-angle_length),(self.x+self.width,self.y+self.height-angle_length)) #right edge
+        pygame.draw.line(display,(0,0,0),(self.x,self.y),(self.x+self.width,self.y-angle_length)) #top edge
+        pygame.draw.line(display,(0,0,0),(self.x,self.y+self.height),(self.x+self.width,self.y+self.height-angle_length)) #bottom edge
+	'''
+	pygame.draw.line(display,(0,0,0),(self.x,self.y),(self.x,self.y+self.height))
+	#pygame.draw.line(display,(255,0,0),(self.x,self.y-self.height),(self.x,self.y))
+
+	pygame.draw.line(display,(0,0,0),(self.x+self.width,self.y-angle_length),(self.x+self.width,self.y+self.height-angle_length))
+	pygame.draw.line(display,(0,0,0),(self.x-self.width,self.y-angle_length),(self.x-self.width,self.y+self.height-angle_length))
+	
+	pygame.draw.line(display,(0,0,255),(self.x,self.y),(self.x-self.width,self.y-angle_length))
+	pygame.draw.line(display,(0,0,255),(self.x,self.y+self.height),(self.x-self.width,self.y+self.height-angle_length))
+
+	pygame.draw.line(display,(0,0,255),(self.x,self.y),(self.x+self.width,self.y-angle_length))
+	pygame.draw.line(display,(0,0,255),(self.x,self.y+self.height),(self.x+self.width,self.y+self.height-angle_length))
+
+	pygame.draw.line(display,(0,0,0),(self.x,self.y-self.height),(self.x+self.width,self.y-angle_length))
+	pygame.draw.line(display,(0,0,0),(self.x,self.y-self.height),(self.x-self.width,self.y-angle_length))
+
 
 bloxor = Block()
 
