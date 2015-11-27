@@ -1,2 +1,2 @@
 # Bloxorz-Python
-Bloxorz clone made in python
+Bloxorz clone made in python, uses pygame.
