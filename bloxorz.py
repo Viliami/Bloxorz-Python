@@ -65,7 +65,7 @@ block2.y -= block2.height
 new_tile = Tile(100,100)
 new_tile_2 = Tile(140,100-10)
 
-level_array = [
+'''level_array = [
     [1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,0,0,1,1,1,1,1,1,1,1,1,1,1],
@@ -74,10 +74,18 @@ level_array = [
     [1,1,1,1,1,1,1,1,0,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+]'''
+level_array = [
+    [1,1,1,0,0,0,0,0,0,0],
+    [1,1,1,1,1,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1,1,0],
+    [0,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,1,1,0,1,1],
+    [0,0,0,0,0,0,1,1,1,0]
 ]
 
 def draw_level(level_data,startX=100,startY=200):
-    startX+=len(level_data[0]*40)
+    '''startX+=len(level_data[0]*40)
     x,y = startX,startY
     i = 0
     for j in range(len(level_data)-1,0,-1):
@@ -91,6 +99,17 @@ def draw_level(level_data,startX=100,startY=200):
             y+=10
         x=startX-(i*25)
         y=startY-(i*30)
+        i+=1'''
+    x,y=startX,startY
+    i=1
+    for row in level_data:
+        for tile_data in row:
+            if(tile_data == 1):
+                Tile(x,y).draw()
+            x+=40
+            y-=10
+        x=startX+(i*25)
+        y=startY+(i*30)
         i+=1
 
 def handle_events():
@@ -107,6 +126,9 @@ def handle_events():
                 print("UP")
             if(e.key == pygame.K_DOWN):
                 print("DOWN")
+        if(e.type == pygame.QUIT):
+            pygame.quit()
+            quit()
 
 while(True):
     clock.tick(30)
