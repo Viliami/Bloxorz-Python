@@ -1,4 +1,4 @@
-import pygame
+import pygame, math
 
 pygame.init()
 screen_width = 1000
@@ -20,31 +20,41 @@ class Block:
         b_w = 80
         #pygame.draw.polygon(display,(199,208,207),[(x-10,y),(x-10+w,y-10),(x+ang+w,y-10+h),(x+ang,y+h)])
         #pygame.draw.polygon(display,(0,0,0),[(x-10,y),(x-10+w,y-10),(x+ang+w,y-10+h),(x+ang,y+h)],1)
-        pygame.draw.line(display,(45,56,65),(x-10,y),(x-10,y-b_w))
-        pygame.draw.line(display,(45,56,65),(x+ang+w,y-10+h),(x+ang+w,y-10+h-b_w))
-        pygame.draw.line(display,(45,56,65),(x+ang,y+h),(x+ang,y+h-b_w))
-        #pygame.draw.line(display,(45,56,65),(x-10+w,y-10),(x-10+w,y-10-b_w))
+        
 
         #pygame.draw.line(display,(45,56,65),(x+ang,y+h+10),(x+ang+w,y+h))
         #pygame.draw.line(display,(45,56,65),(x+ang,y+h+10),(x-10,y+10))
         pygame.draw.polygon(display,(76,48,34),[(x-10+w,y-10),(x+ang+w,y-10+h),(x+ang+w,y-10+h-b_w),(x-10+w,y-10-b_w)])
-        pygame.draw.polygon(display,(0,0,0),[(x-10+w,y-10),(x+ang+w,y-10+h),(x+ang+w,y-10+h-b_w),(x-10+w,y-10-b_w)],1)
+        #pygame.draw.polygon(display,(0,0,0),[(x-10+w,y-10),(x+ang+w,y-10+h),(x+ang+w,y-10+h-b_w),(x-10+w,y-10-b_w)],1)
 
         pygame.draw.polygon(display,(76,48,34),[(x-10+w,y-10),(x-10,y),(x-10,y-b_w),(x-10+w,y-10-b_w)])
-        pygame.draw.polygon(display,(0,0,0),[(x-10+w,y-10),(x-10,y),(x-10,y-b_w),(x-10+w,y-10-b_w)],1)
+        #pygame.draw.polygon(display,(0,0,0),[(x-10+w,y-10),(x-10,y),(x-10,y-b_w),(x-10+w,y-10-b_w)],1)
 
         pygame.draw.polygon(display,(76,48,34),[(x-10,y),(x+ang,y+h),(x+ang,y+h-b_w),(x-10,y-b_w)])
-        pygame.draw.polygon(display,(0,0,0),[(x-10,y),(x+ang,y+h),(x+ang,y+h-b_w),(x-10,y-b_w)],1)
+        #pygame.draw.polygon(display,(0,0,0),[(x-10,y),(x+ang,y+h),(x+ang,y+h-b_w),(x-10,y-b_w)],1)
 
         pygame.draw.polygon(display,(76,48,34),[(x+ang+w,y-10+h),(x+ang,y+h),(x+ang,y+h-b_w),(x+ang+w,y-10+h-b_w)])
-        pygame.draw.polygon(display,(0,0,0),[(x+ang+w,y-10+h),(x+ang,y+h),(x+ang,y+h-b_w),(x+ang+w,y-10+h-b_w)],1)
+        #pygame.draw.polygon(display,(0,0,0),[(x+ang+w,y-10+h),(x+ang,y+h),(x+ang,y+h-b_w),(x+ang+w,y-10+h-b_w)],1)
 
-    def rotate_around(self,degrees,point):
-        pX,pY = point
-        xRot = pX + (math.cos(degrees)*(x-pX))-(math.sin(degrees)*(y-pY))
-        yRot = pY + (math.sin(degrees)*(x-pX))-(math.cos(degrees)*(y-pY))
-
+        #pygame.draw.line(display,(45,56,65),(x-10,y),(x-10,y-b_w))
+        pygame.draw.line(display,(45,56,65),(x+ang+w,y-10+h),(x+ang+w,y-10+h-b_w))
+        pygame.draw.line(display,(45,56,65),(x+ang,y+h),(x+ang,y+h-b_w))
+        #pygame.draw.line(display,(45,56,65),(x-10+w,y-10),(x-10+w,y-10-b_w))
+        b_l = (x+ang,y+h)
+        t_l = (x+ang,y+h-b_w)
+        b_r = (x+ang+w,y-10+h)
+        t_r = (x+ang+w,y-10+h-b_w)
+        t_l_r = self.rotate_around(90,b_l,t_l)
+        pygame.draw.circle(display,(255,255,255),t_l_r,10)
         
+
+    def rotate_around(self,degrees,centre,point):
+        x,y = point
+        degrees = math.radians(degrees)
+        pX,pY = centre
+        rotX = pX + (math.cos(degrees)*(x-pX))-(math.sin(degrees)*(y-pY))
+        rotY = pY + (math.sin(degrees)*(x-pX))-(math.cos(degrees)*(y-pY))
+        return (int(rotX),int(rotY))
 
 class Tile:
     def __init__(self,x=100,y=100):
